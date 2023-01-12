@@ -1,0 +1,48 @@
+﻿@page "/horses/add"
+@inject IUnitOfwork unitofwork
+@inject NavigationManager Navmanager
+<h1>Create</h1>
+<hr/>
+<div class="row">
+    <div class="col-md-4">
+        <form>
+            <div class="form-group">
+                <label for="Name" class="control-label">Name</label>
+                <input for="Name" class="form-control" @bind= "@horses.Name"/>
+                 <label for="Name" class="control-label">Id</label>
+                <input for="Name" class="form-control" @bind= "@horses.SamuraiId"/>
+                
+                
+            </div>
+            <div class="form-group">
+                <input type="button" class="btn btn-primary" @onclick="@CreateHorses" value="Save"/>
+                <input type="button" class="btn btn-primary" @onclick="@cancel" value="Cancel"/>
+                @*<label for ="Name" class="control-label">Name</label>
+                <input  for="Name " class="form-control"/>*@
+            </div>
+        </form>
+    </div>
+</div>
+
+@code {
+    Horses horses = new Horses();
+
+    public async void CreateHorses()
+    {
+
+        unitofwork.AddHorses(horses);
+        this.StateHasChanged();
+
+        Navmanager.NavigateTo("/horses");
+        
+
+       
+    }
+    void cancel ()
+    {
+        Navmanager.NavigateTo("/horses");
+    }
+
+}
+
+

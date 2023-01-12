@@ -1,0 +1,51 @@
+﻿@page "/battels"
+@*service layer to interaction with logic*@ 
+@inject IUnitOfwork unitofwork
+@*title of the page *@
+<h3>Get Battel Data</h3>
+ <br/>
+@*reference of the creation method *@
+ <p>
+   <a href="/battels/add">Create</a>
+ </p>
+
+<table class="table table-striped w-75 p-3 border border-success text-success">
+    <thead>
+        <tr>
+            <td>Id</td>
+            <td>Name</td>
+            <td>Battel Year</td>
+
+
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var battle in Battleslist)
+        {
+                <tr>
+                 <td>@battle.ID</td>
+                 <td>@battle.Name</td>
+                  <td>@battle.BattelYear</td>
+
+                 <td>
+                   <a class="text-success" href='/battels/edit/@battle.ID'>Update</a>
+                   <a class="text-danger" href='/battels/delete/@battle.ID'>Delete</a>
+
+                 </td>
+
+                 </tr>
+        }
+
+    </tbody>
+        </table>
+
+@code {
+    IList<Battle> Battleslist = new List<Battle>();
+    protected override void OnInitialized()
+    {
+        Battleslist = unitofwork.GetAllBattle();
+
+
+    }
+
+}

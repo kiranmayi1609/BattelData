@@ -1,0 +1,52 @@
+﻿@*Navigation pane *@
+@page "/samurai"
+@*service layer to interaction with logic*@ 
+@inject IUnitOfwork unitofwork
+@*title of the page *@
+<h3>Get Samurayies Data</h3>
+ <br/>
+ @*reference of the creation method *@
+ <p>
+   <a href="/samurai/add">Create</a>
+ </p>
+
+<table class="table table-striped  w-75 p-3 border border-secondary"  >
+    <thead>
+        <tr>
+            <th scope="col">Id</th>
+            <th scope="col">Name</th>
+            
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var samurai in Samurailist)
+        {
+        <tr>
+           
+         <td scope="row">@samurai.ID</td>
+         <td scope="row">@samurai.Name</td>
+         <td>
+             <a class="text-success" href='/samurai/edit/@samurai.ID'>Update</a>
+             <a class="text-danger" href='/samurai/delete/@samurai.ID'>Delete</a>
+
+         </td>
+
+         </tr>
+        }
+
+    </tbody>
+        </table>
+
+@code {
+    IList<Samurai> Samurailist = new List<Samurai>();
+    protected override void OnInitialized()
+    {
+        //base.OnInitialized();
+
+        Samurailist = unitofwork.GetAllSamurai();
+        //Samurai s = new Samurai() { Name = "Oda" };
+        //unitofwork.AddSamurai(s);
+    }
+
+
+}

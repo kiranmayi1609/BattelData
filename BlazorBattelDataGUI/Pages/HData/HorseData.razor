@@ -1,0 +1,48 @@
+﻿@*Navigation pane *@
+@page "/horses"
+@*service layer to interaction with logic*@ 
+@inject IUnitOfwork unitofwork
+@*title of the page *@
+<h3>Get Horses Data</h3>
+ <br/>
+@*reference of the creation method *@
+ <p>
+   <a href="/horses/add">Create</a>
+ </p>
+
+<table class="table table-striped  w-75 p-3 border  border-primary text-success">
+    <thead>
+        <tr>
+            <td>Id</td>
+            <td>Name</td>
+
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var horses in Horseslist)
+        {
+            <tr>
+             <td>@horses.Id</td>
+             <td>@horses.Name</td>
+             <td>
+                     <a class="text-success" href='/horses/edit/@horses.Id'>Update</a>
+                     <a class="text-danger" href='/horses/delete/@horses.Id'>Delete</a>
+
+             </td>
+
+             </tr>
+        }
+
+    </tbody>
+        </table>
+
+@code {
+    IList<Horses> Horseslist = new List<Horses>();
+    protected override void OnInitialized()
+    {
+        Horseslist=unitofwork.GetAllHorses();
+
+
+    }
+
+}

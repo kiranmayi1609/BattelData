@@ -1,0 +1,47 @@
+﻿@page "/battels/delete/{id}"
+@inject IUnitOfwork unitofwork
+@inject NavigationManager Navmanager
+
+<h1>Delete horses</h1>
+<hr/>
+<form>
+    <div class="row">
+    <div class="col-md-4">
+        <div class="form-group">
+                <label for="Name" class="control-label">Name</label>
+                <input for="Name" class="form-control" @bind="@battle.Name"  />
+            </div>
+            <div class="form-group">
+                <input type="button" class="btn btn-primary"  @onclick="@DeleteBattel" value="Delete" />
+                <input type="button" class="btn btn-primary" @onclick="@cancel" value ="Cancel" />
+            </div>
+
+
+
+
+
+
+    </div>
+    </div>
+
+</form>
+
+@code {
+    [Parameter]
+    public string Id { get; set; }
+    Battle battle = new Battle();
+    List<Battle> battles = new List<Battle>();
+    protected async void DeleteBattel()
+    {
+        battle.ID = Convert.ToInt32(Id);
+        unitofwork.RemoveBattle(battle);
+        Navmanager.NavigateTo("/battels");
+
+
+    }
+    public void cancel()
+    {
+        Navmanager.NavigateTo("/battels");
+    }
+
+}

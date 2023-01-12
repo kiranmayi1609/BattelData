@@ -1,0 +1,50 @@
+﻿@page "/battels/edit/{id}"
+@inject IUnitOfwork unitofwork 
+@inject NavigationManager Navmanager
+<h1>Edit battels</h1>
+<hr/>
+<form>
+    <div class="row">
+    <div class="col-md-4">
+
+            <div class="form-group">
+                <label for="Name" class="control-label">Name</label>
+                <input for="Name" class="form-control" @bind="@battle.Name" />
+                
+            </div>
+
+
+            <div class="form-group">
+                <input type="button" class="btn btn-primary"  @onclick="@UpdateBattel" value="Update" />
+                <input type="button" class="btn btn-primary" @onclick="@cancel" value ="Cancel" />
+            </div>
+
+
+    </div>
+</div>
+</form>
+
+
+
+@code {
+    [Parameter]
+    public string Id { get; set; }
+
+    Battle battle = new Battle();
+    IList<Battle> battles = new List<Battle>();
+    protected async void UpdateBattel()
+    {
+        battle.ID = Convert.ToInt32(Id);
+
+        unitofwork.UpdateBattle(battle);
+
+
+        Navmanager.NavigateTo("/battles");
+    }
+
+    void cancel()
+    {
+
+        Navmanager.NavigateTo("/battles");
+    }
+}

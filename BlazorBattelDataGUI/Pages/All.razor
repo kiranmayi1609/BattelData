@@ -1,0 +1,42 @@
+﻿@*@*@page "/All"
+@*@inject IUnitOfwork unitofwork
+@*title of the page *@
+@*<h3>Get All Data</h3>
+ <br/>*@
+ @*reference of the creation method *@
+ 
+
+@*<table class="table table-striped  w-75 p-3 border border-secondary DataSource="@samurais"  >
+    <thead>
+        <tr>
+            <th scope="col" filed=@nameof(Horses.SamuraiId)>Id</th>
+            <th scope="col" filed=@nameof(Horses.Name)>HorseName</th>
+            <ForeignColumn field=@nameof(Samurai.Name)>HorseName</th>
+             <
+
+            
+        </tr>
+    </thead>
+    <tbody>
+        
+
+    </tbody>
+        </table>*@
+
+
+    @*//IList<Samurai> samurais = new List<Samurai>();
+    //IList<Horses> Horseslist = new List<Horses>();
+
+    //protected override async void OnInitialized()
+    //{
+        //base.OnInitialized();*@
+        @*var Groupjoins = unitofwork.GetAllSamurai().GroupJoin(unitofwork.GetAllHorses(), s => s.ID, h => h.SamuraiId,
+         (s, h) => new { s, h }
+
+        );*@
+
+        @*//samurais =  unitofwork.GetAllSamurai().ToList();
+        //Horseslist =  unitofwork.GetAllHorses().ToList();
+        //Samurai s = new Samurai() { Name = "Oda" };
+        //unitofwork.AddSamurai(s);
+*@

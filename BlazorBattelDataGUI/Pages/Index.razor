@@ -1,0 +1,41 @@
+﻿@page "/"
+@inherits LayoutComponentBase
+
+
+<PageTitle>Index</PageTitle>
+
+<h1>Hello</h1>
+ 
+<div class="col-md-6 p-3" width="300px"  >
+
+  <button class="btn btn-primary  dropdown-toggle mr-4" type="button" id="dropdownMenuButton" @onclick="ToggleDropdown" placeholder="Select a Model" aria-haspopup="true" aria-expanded="false">
+      
+  </button>
+  <div class="@myclass">
+     <a class="dropdown-item" type="button" href="/samurai">Samurayi</a>
+     <a class="dropdown-item" type="button" href="/horses">Horses</a>
+     <a class="dropdown-item" type="button" href="/battles">Battles</a>
+     <a class="dropdown-item" type="button" href="/weapons">Weapons</a>
+     <a class="dropdown-item" type="button" href="/musems">Musems</a>
+  </div>
+  <div class="w-auto">
+    <img class="background" src="..\img\samurai.jpg"
+</div>
+</div>
+
+
+
+@code {
+    bool Isshow = false;
+    string myclass => "dropdown-menu" + (Isshow ? " show" : "");
+    void ToggleDropdown()
+    {
+
+        Isshow = !Isshow;
+    }
+}
+
+
+
+@*<SurveyPrompt Title="How is Blazor working for you?" />*@
+

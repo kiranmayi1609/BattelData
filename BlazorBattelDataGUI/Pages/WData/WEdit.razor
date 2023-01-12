@@ -1,0 +1,48 @@
+﻿@page "/weapon/edit/{id}"
+@inject IUnitOfwork unitofwork 
+@inject NavigationManager Navmanager
+<h1>Edit Weapons</h1>
+<hr/>
+<form>
+    <div class="row">
+    <div class="col-md-4">
+
+            <div class="form-group">
+                <label for="Name" class="control-label">Name</label>
+                <input for="Name" class="form-control" @bind="@weapon.Name" />
+            </div>
+
+
+            <div class="form-group">
+                <input type="button" class="btn btn-primary"  @onclick="@UpdateWeapon" value="Update" />
+                <input type="button" class="btn btn-primary" @onclick="@cancel" value ="Cancel" />
+            </div>
+
+
+    </div>
+</div>
+</form>
+
+
+
+@code {
+    [Parameter]
+    public string Id { get; set; }
+    Weapon weapon = new Weapon();
+    IList<Weapon> weapons = new List<Weapon>();
+    protected async void UpdateWeapon()
+    {
+        weapon.ID= Convert.ToInt32(Id);
+
+        unitofwork.UpdateWeapons(weapon);
+
+
+        Navmanager.NavigateTo("/weapons");
+    }
+
+    void cancel()
+    {
+
+        Navmanager.NavigateTo("/weapons");
+    }
+}

@@ -1,0 +1,74 @@
+﻿@page "/samurai/edit/{id}"
+@inject IUnitOfwork unitofwork
+@inject NavigationManager NavManger 
+
+<h1>Edit Samurayi</h1>
+<hr/>
+<form>
+@*<EditForm  onsubmit ="@submitForm" >
+    <div class="form-group">
+        <label>Id</label>
+        <input id="Id" Value="@samurai.ID" name ="id" readonly/>
+    </div>
+    <div class="form-group">
+        <label>Id</label>
+        <inputText id="Name" class="form-control" Value="@samurai.Name" name ="name" @bind="samurai.Name "></InputText>
+    </div>
+    <button type="submit" class="btn btn -primary" >Update</button>*@
+
+
+@*</EditForm>*@
+<div class="row">
+    <div class="col-md-4">
+        
+            <div class="form-group">
+                <label for="Name" class="control-label">Name</label>
+                <input for="Name" class="form-control" @bind="@samurai.Name" />
+            </div>
+            
+           
+            <div class="form-group">
+                <input type="button" class="btn btn-primary"  @onclick="@UpdateSamurayi" value="Update" />
+                <input type="button" class="btn btn-primary" @onclick="@cancel" value ="Cancel" />
+            </div>
+      
+        
+    </div>
+</div>
+</form>
+
+
+
+@code {
+    [Parameter]
+    public  string Id { get; set; }
+
+    Samurai samurai = new Samurai();
+    IList<Samurai> s = new List<Samurai>();
+
+    protected async void UpdateSamurayi( )
+
+    {
+
+
+
+        samurai.ID = Convert.ToInt32(Id);
+
+        
+        //Samurai samurai2 = new Samurai() { ID=5, Name = "water" };
+        //unitofwork.UpdateSamurai(samurai2);
+        
+        //Samurai samurai2 = new Samurai() {ID=Convert.ToInt32(Id)};
+        unitofwork.UpdateSamurai(samurai);
+       // samurai = unitofwork.GetSamuraiByName(Id);
+       //unitofwork.UpdateSamurai(samurai);
+
+        NavManger.NavigateTo("/samurai");
+    }
+    
+     void cancel ()
+    {
+        
+        NavManger.NavigateTo("/samurai");
+    }
+}

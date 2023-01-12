@@ -1,0 +1,52 @@
+﻿@page "/weapons"
+@*service layer to interaction with logic*@ 
+@inject IUnitOfwork unitofwork
+@*title of the page *@
+<h3>Get Weapons  Data</h3>
+ <br/>
+@*reference of the creation method *@
+ <p>
+   <a href="/weapons/add">Create</a>
+ </p>
+
+<table class="table table-striped  w-75 p-3 border border-info">
+    <thead>
+        <tr>
+            <td>Id</td>
+            <td>Name</td>
+            
+
+
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var weapons in weaponlist)
+        {
+                    <tr>
+                     <td>@weapons.ID</td>
+                     <td>@weapons.Name</td>
+                     
+                      
+
+                     <td>
+                             <a class="text-success" href='/weapons/edit/@weapons.ID'>Update</a>
+                             <a class="text-danger" href='/weapons/delete/@weapons.ID'>Delete</a>
+
+                     </td>
+
+                     </tr>
+        }
+
+    </tbody>
+        </table>
+
+@code {
+    IList<Weapon> weaponlist = new List<Weapon>();
+    protected override void OnInitialized()
+    {
+        weaponlist=unitofwork.GetAllWeapons();
+
+
+    }
+
+}

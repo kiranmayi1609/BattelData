@@ -1,0 +1,53 @@
+﻿@page "/musems"
+@*service layer to interaction with logic*@ 
+@inject IUnitOfwork unitofwork
+@*title of the page *@
+<h3>Get Musem  Data</h3>
+ <br/>
+@*reference of the creation method *@
+ <p>
+   <a href="/musems/add">Create</a>
+ </p>
+
+<table class="table  table-striped  w-75 p-3 border border-secondary">
+    <thead>
+        <tr>
+            <td>Id</td>
+            <td>Name</td>
+
+
+
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var musems in musemlist)
+        {
+                        <tr>
+                         <td>@musems.ID</td>
+                         <td>@musems.Name</td>
+                         <td>@musems.Place</td>
+
+
+
+                         <td>
+                            <a class="text-success" href='/musems/edit/@musems.ID'>Update</a>
+                            <a class="text-danger" href='/musems/delete/@musems.ID'>Delete</a>
+
+                         </td>
+
+                         </tr>
+        }
+
+    </tbody>
+        </table>
+
+@code {
+    IList<Museum> musemlist = new List<Museum>();
+    protected override void OnInitialized()
+    {
+        musemlist = unitofwork.GetAllMusems();
+
+
+    }
+
+}

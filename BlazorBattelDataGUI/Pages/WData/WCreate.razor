@@ -1,0 +1,46 @@
+﻿@page "/weapons/add"
+@inject IUnitOfwork unitofwork
+@inject NavigationManager Navmanager
+<h1>Create</h1>
+<hr/>
+<div class="row">
+    <div class="col-md-4">
+        <form>
+            <div class="form-group">
+                <label for="Name" class="control-label">Name</label>
+                <input for="Name" class="form-control" @bind= "@weapon.Name"/>
+                 <label for="Name" class="control-label">Id</label>
+                <input for="Name" class="form-control" @bind= "@weapon.SamuraiID"/>
+
+
+            </div>
+            <div class="form-group">
+                <input type="button" class="btn btn-primary" @onclick="@CreateWeapons" value="Save"/>
+                <input type="button" class="btn btn-primary" @onclick="@cancel" value="Cancel"/>
+                @*<label for ="Name" class="control-label">Name</label>
+                <input  for="Name " class="form-control"/>*@
+            </div>
+        </form>
+    </div>
+</div>
+
+@code {
+    Weapon weapon = new Weapon();
+   
+    public async void CreateWeapons()
+    {
+        unitofwork.AddWeapons(weapon);
+        
+        this.StateHasChanged();
+
+        Navmanager.NavigateTo("/weapons");
+
+
+
+    }
+    void cancel()
+    {
+        Navmanager.NavigateTo("/weapons");
+    }
+
+}
